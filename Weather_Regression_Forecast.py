@@ -139,7 +139,7 @@ class Weather_app(QWidget):
             self.description_label.setText(f"{description.title()}")
             self.description_label.setStyleSheet("font-size: 25px; font-style: italic; color: #666;")
 
-            # --- Get historical data for regression model ---
+            # Get historical data for regression model
             timestamps = []
             temps = []
             today = datetime.today()
@@ -152,17 +152,17 @@ class Weather_app(QWidget):
                 summary_response.raise_for_status()
                 summary_data = summary_response.json()
                 
-                # The API returns a date string. Convert it to a numerical timestamp.
+                # The API returns date string. Numerical timestamp.
                 date_obj = datetime.strptime(summary_data['date'], '%Y-%m-%d')
                 timestamps.append(date_obj.timestamp())
                 
-                # CORRECTED: Use the 'afternoon' key which exists in the API response
+                # Use afternoon key which exists in the API response
                 temps.append(summary_data['temperature']['afternoon'])
 
             X = np.array(timestamps).reshape(-1, 1)
             y = np.array(temps)
 
-            # --- Train model and predict future temperatures ---
+            # Regression to predict future temperatures
             model = LinearRegression()
             model.fit(X, y)
 
@@ -175,7 +175,7 @@ class Weather_app(QWidget):
             future_X = np.array(future_timestamps).reshape(-1, 1)
             predicted_temps = model.predict(future_X)
 
-            # --- Update UI with regression forecast ---
+            # Update UI with regression forecast
             unknown_icon_path = "icons/unknown.gif"
             for i in range(5):
                 widget_group = self.forecast_widgets[i]
