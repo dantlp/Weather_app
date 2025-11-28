@@ -20,7 +20,7 @@ class Weather_app(QWidget):
         self.humidity_label = QLabel(self)
         self.description_label = QLabel(self)
         
-        # Create a layout and widgets for the 5-day forecast
+        # Create a layout and widgets for the 5-day forecast horizontaly at the bottom 
         self.forecast_layout = QHBoxLayout()
         self.forecast_widgets = []
         for _ in range(5):
@@ -82,7 +82,8 @@ class Weather_app(QWidget):
         for i, day_widget in enumerate(self.forecast_widgets):
             day_widget["day"].setObjectName(f"forecast_day_{i}")
             day_widget["temp"].setObjectName(f"forecast_temp_{i}")
-
+        
+        #Change font, size and colour. 
         self.setStyleSheet("""
             QWidget { background-color: #f0f0f0; }
             QLabel#date_label { font-size: 18px; color: #555; margin-bottom: 15px; }
@@ -124,7 +125,7 @@ class Weather_app(QWidget):
         forecast_url = f"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}&units=metric"
 
         try:
-            # --- Get and display current weather ---
+            # Display current weather
             response = requests.get(current_weather_url)
             response.raise_for_status()
             data = response.json()
@@ -150,7 +151,7 @@ class Weather_app(QWidget):
             self.description_label.setText(f"{description.title()}")
             self.description_label.setStyleSheet("font-size: 25px; font-style: italic; color: #666;")
 
-            # --- Get and display 5-day forecast ---
+            # Get and display 5-day forecast 
             response = requests.get(forecast_url)
             response.raise_for_status()
             forecast_data = response.json()
