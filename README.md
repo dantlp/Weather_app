@@ -31,4 +31,8 @@ Usage
 
   Simple and intuitive visual interface
 
-  The app combines real-time weather data with machine learning to provide accurate temperature forecasts in an easy-to-understand visual format.
+  The app combines real-time weather data with linear regression to provide accurate temperature forecasts in an easy-to-understand visual format.
+
+As the app is using a very basic linear regression, it is able to forecast the temperature but not the weather conditions, as gathering information from the API takes around 2-3 seconds per search, Time series analysis requieres infromation from previous years and recent information, this would make the execution take way longer to show the information.
+
+For future improvement, it is recommended to store the API information, limit the cities selected and implement time series analysis.
